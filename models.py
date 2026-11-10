@@ -19,6 +19,7 @@ CARD_CSS ="""
   padding: 14px;
   margin: 8px 6px;
   font-family: "Inter", sans-serif;
+  color: #202124;
 }
 .persona-id { font-size:16px; font-weight:700; margin-bottom:6px; }
 .persona-count { color:#666; font-size:12px; margin-bottom:8px; }
@@ -27,7 +28,7 @@ CARD_CSS ="""
 .persona-idade { color:#666; font-size:12px; margin-bottom:8px; }
 .persona-plataforma { color:#666; font-size:12px; margin-bottom:8px; }
 .persona-metrics { display:flex; gap:10px; margin-bottom:8px; }
-.persona-median_gasto { background:#0D0D0D; padding:6px 8px; border-radius:8px; font-size:13px; }
+.persona-median_gasto { background:#0D0D0D; color:#ffffff; padding:6px 8px; border-radius:8px; font-size:13px; }
 .small-note { font-size:12px; color:#777; }
 </style>
 """
