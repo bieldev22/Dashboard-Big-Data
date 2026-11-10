@@ -3,12 +3,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns   
 import pandas as pd
 import numpy as np
-from app import faixa_to_numeric
+from analysis_utils import faixa_to_numeric
 
 st.markdown("# Gráficos 📈")
 st.sidebar.markdown("# Gráficos 📈")
-url= "https://docs.google.com/spreadsheets/d/1Y5fFvU-r9ZrPJ3xAq_ANn4LK3qd8azr4mpcTqPgaCYw/export?format=csv"
-df= pd.read_csv(url)
+from survey_data import load_survey
+
+df = load_survey()
 df_jovens = df[df['Qual sua faixa etaria?'].astype(str).str.contains('18', na=False)]
 
 pattern_18_24 = r'18\s*[-–—]\s*24|18\s*a\s*24|18\s*até\s*24|18-24|18–24|18 a 24'

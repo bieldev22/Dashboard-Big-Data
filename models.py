@@ -7,7 +7,7 @@ from sklearn.metrics import calinski_harabasz_score
 import matplotlib.pyplot as plt
 import seaborn as sns   
 import pandas as pd
-from app import faixa_to_numeric
+from analysis_utils import faixa_to_numeric
 from sklearn.decomposition import PCA
 
 CARD_CSS ="""
@@ -36,8 +36,9 @@ st.markdown(CARD_CSS, unsafe_allow_html=True)
 st.markdown("# Modelos 🤖")
 st.sidebar.markdown("# Modelos 🤖")
 
-url= "https://docs.google.com/spreadsheets/d/1Y5fFvU-r9ZrPJ3xAq_ANn4LK3qd8azr4mpcTqPgaCYw/export?format=csv"
-df= pd.read_csv(url)
+from survey_data import load_survey
+
+df = load_survey()
 
 categorical_cols = ['Você é um profissional:','Qual sua faixa etaria?','Gênero:', 'Município onde reside:',
                     'Faixa de renda mensal:','Seu canal de compra mais frequente:', 'Categoria do seu consumo mensal principal:',
@@ -66,16 +67,17 @@ for cluster_id, group in df.groupby('Cluster')[categorical_cols].agg(lambda s: s
     lazer= group['Local mais frequente de lazer:']
     canal= group['Seu canal de compra mais frequente:']
     plataforma= group['Plataforma onde acompanha marcas:']
-    median_gasto = df['gasto_num'].median()
-    count = len(group)
+    cluster_frame = df.loc[df['Cluster'] == cluster_id]
+    median_gasto = cluster_frame['gasto_num'].median()
+    count = len(cluster_frame)
     card_html = f"""
     <div class="persona-card">
       <div class="persona-id">Cluster {cluster_id}</div>
       <div class="persona-count">Número de membros: {count}</div>
-      <div class="persona-idade">Número de membros: {idade}</div>
-      <div class="persona-lazer">Número de membros: {lazer}</div>
-      <div class="persona-canal">Número de membros: {canal}</div>
-      <div class="persona-plataforma">Número de membros: {plataforma}</div>
+      <div class="persona-idade">Faixa etária: {idade}</div>
+      <div class="persona-lazer">Lazer: {lazer}</div>
+      <div class="persona-canal">Canal de compra: {canal}</div>
+      <div class="persona-plataforma">Plataforma: {plataforma}</div>
       <div class="persona-metrics">
         <div class="persona-median_gasto">Mediana Gasto Não Essencial: R$ {median_gasto:.2f}</div>
       </div>
